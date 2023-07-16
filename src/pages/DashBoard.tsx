@@ -18,7 +18,7 @@ const DashBoard = () => {
           <Card>
             <div className="bg-pattern bg-cover bg-no-repeat h-full flex flex-col justify-center items-center">
               <h1 className=" font-Merienda font-bold text-4xl uppercase">
-                Hello {user.fullName.split(' ')[0]}!
+                Hello {user?.fullName.split(' ')[0]}!
               </h1>
               <p className="text-xl">It's good to see you again</p>
             </div>

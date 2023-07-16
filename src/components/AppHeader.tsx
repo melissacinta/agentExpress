@@ -1,18 +1,18 @@
 import { FiBell, FiChevronDown, FiMenu } from 'react-icons/fi';
 import Logo from './Logo';
 import ToggleSwitch from './ToggleSwitch';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { classNames, imageUrl } from '../utils';
 import useAuth from '../hooks/useAuth';
+import LogOutModal from './LogOutModal';
 
 type Props = {
   setSidebarOpen: (x: boolean) => void;
 };
 
-const userNavigation = [{ name: 'Sign out', href: '#' }];
-
 const AppHeader = ({ setSidebarOpen }: Props) => {
+  const [open, setOpen] = useState(false);
   const { user } = useAuth();
   return (
     <div className="bg-white dark:bg-primary-dark w-full flex justify-between px-4 lg:px-16 dark:text-white transition-all duration-500 linear py-6 h-max border-b-2 border-border-light">
@@ -82,26 +82,25 @@ const AppHeader = ({ setSidebarOpen }: Props) => {
                 <p className="truncate text-sm font-medium">{user?.email}</p>
               </div>
               <div className="py-1">
-                {userNavigation.map((item) => (
-                  <Menu.Item key={item.name}>
-                    {({ active }) => (
-                      <a
-                        href={item.href}
-                        className={classNames(
-                          active ? 'bg-gradient-linear text-white' : '',
-                          'block px-3 py-1 text-sm leading-6'
-                        )}
-                      >
-                        {item.name}
-                      </a>
-                    )}
-                  </Menu.Item>
-                ))}
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={() => setOpen(true)}
+                      className={classNames(
+                        active ? 'bg-gradient-linear text-white' : '',
+                        'block px-3 py-1 text-sm leading-6 w-full text-left'
+                      )}
+                    >
+                      Sign out
+                    </button>
+                  )}
+                </Menu.Item>
               </div>
             </Menu.Items>
           </Transition>
         </Menu>
       </div>
+      <LogOutModal open={open} setOpen={setOpen} />
     </div>
   );
 };
