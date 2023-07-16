@@ -1,5 +1,6 @@
 import { ToastOptions } from './types';
 import toast from 'react-hot-toast';
+export const baseUrl = 'http://frontend.test.mwanga.ng/api/v1';
 
 export const imageUrl = (byteDataString: string): string => {
   const byteData = new Uint8Array(

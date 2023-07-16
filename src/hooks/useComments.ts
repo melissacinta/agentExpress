@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { notify } from '../utils';
+import { baseUrl, notify } from '../utils';
 import useAuth from './useAuth';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 
@@ -9,21 +9,15 @@ export type Comment = {
 };
 
 const getComments = (id) => {
-  return axios.get(
-    `${import.meta.env.VITE_BASE_URL as string}/comments/${id as number}`
-  );
+  return axios.get(`/api/v1/comments/${id as number}`);
 };
 const storeAComment = ({ id, ...payload }) => {
-  return axios.post(
-    `${import.meta.env.VITE_BASE_URL as string}/comments/${id as number}/save`,
-    payload,
-    {
-      withCredentials: false,
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    }
-  );
+  return axios.post(`/api/v1/comments/${id as number}/save`, payload, {
+    withCredentials: false,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  });
 };
 
 const useComments = () => {

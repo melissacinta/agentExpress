@@ -5,9 +5,7 @@ import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 const login = async ({ email, password }) => {
   return axios.get(
-    `${import.meta.env.VITE_BASE_URL as string}/login?email=${
-      email as string
-    }&password=${password as string}`
+    `/api/v1/login?email=${email as string}&password=${password as string}`
   );
 };
 export type USER = {
