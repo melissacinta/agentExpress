@@ -2,6 +2,8 @@
   from = "/api/*"
   to = "https://frontend.test.mwanga.ng/api/:splat"
   status = 200
+  force = true
+  headers = {X-From = "Netlify"}
 
 [[redirects]]
   from = "/*"
