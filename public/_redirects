@@ -1,0 +1,5 @@
+# This will redirect all paths under /api
+/api/*                        https://frontend.test.mwanga.ng/api/:splat        200!
+
+# This will redirect all other paths
+/*    /index.html          200
