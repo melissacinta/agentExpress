@@ -16,7 +16,13 @@ const Login = () => {
         <div className="flex-1 lg:grid lg:grid-cols-12 gap-12 lg:gap-6 lg:h-full lg:items-center">
           <div className="lg:col-span-7">
             <div className="h-full max-h-[13.875rem] md:max-h-[19.375rem] lg:max-h-[100%] inline-block overflow-hidden">
-              <img src={loginImg} alt="" className="object-cover" />
+              <div className="flex h-full justify-center">
+                <img
+                  src={loginImg}
+                  alt=""
+                  className="object-cover max-h-[13.875rem] md:max-h-[19.375rem] lg:max-h-[100%]"
+                />
+              </div>
             </div>
           </div>
           <div className="lg:col-span-5 px-4 md:px-6 lg:px-12 flex flex-col gap-2  divide-y-2 divide-border-light">
