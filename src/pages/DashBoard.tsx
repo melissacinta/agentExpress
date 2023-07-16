@@ -1,25 +1,42 @@
+import Card from '../components/Card';
+import Comments from '../components/Comments';
 import Layout from '../components/Layout';
 import ProgressBar from '../components/ProgressBar';
+import useAuth from '../hooks/useAuth';
 
 const DashBoard = () => {
-  const targetData = {
-    targetAmount: 200000,
-    actualAmount: 91804.84,
-    pendingAmount: 102272.62,
+  const { user } = useAuth();
+  const targetData = user?.target as {
+    targetAmount: number;
+    actualAmount: number;
+    pendingAmount: number;
   };
   return (
     <Layout>
-      <div>
-        <div>
-          <h1>Hello Carrie!</h1>
-          <p>It's good to see you again</p>
+      <div className=" space-y-5">
+        <div className="grid md:grid-cols-2 gap-y-5 gap-x-8">
+          <Card>
+            <div className="bg-pattern bg-cover bg-no-repeat h-full flex flex-col justify-center items-center">
+              <h1 className=" font-Merienda font-bold text-4xl uppercase">
+                Hello {user.fullName.split(' ')[0]}!
+              </h1>
+              <p className="text-xl">It's good to see you again</p>
+            </div>
+          </Card>
+          <Card>
+            <div className="h-full">
+              <h2 className="text-xl font-semibold font-barlow-condensed uppercase tracking-wide">
+                My Target
+              </h2>
+              <div>
+                <ProgressBar {...targetData} />
+              </div>
+            </div>
+          </Card>
         </div>
-        <div>
-          <h2>My Target</h2>
-          <div>
-            <ProgressBar {...targetData} />
-          </div>
-        </div>
+        <Card>
+          <Comments />
+        </Card>
       </div>
     </Layout>
   );

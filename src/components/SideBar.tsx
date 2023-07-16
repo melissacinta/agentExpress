@@ -1,4 +1,4 @@
-import { Transition, Dialog, Menu } from '@headlessui/react';
+import { Transition, Dialog } from '@headlessui/react';
 import { Fragment } from 'react';
 import {
   FiCalendar,
@@ -92,11 +92,11 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                             className={classNames(
                               item.current
                                 ? 'bg-gradient-linear text-white rounded-r-full'
-                                : 'text-[#858585] dark:text-white hover:bg-gray-50 hover:rounded-r-full',
-                              'group flex gap-x-3 rounded-md hover:text-white hover:bg-gradient-rev hover:opacity-50 pl-12 py-2 text-sm leading-6 font-semibold transition-all duration-500 ease-in-out'
+                                : 'text-primary-dark dark:text-white hover:bg-gray-50 hover:rounded-r-full',
+                              'group flex gap-x-3 rounded-md hover:text-white hover:bg-gradient-rev opacity-100 hover:opacity-50 pl-12 py-2 text-sm leading-6 font-semibold transition-all duration-500 ease-in-out'
                             )}
                           >
-                            <div className="relative w-6">
+                            <div className="relative w-6 text-white">
                               <div className="absolute inset-0 group-hover:hidden">
                                 <svg
                                   viewBox="0 0 24 24"
@@ -160,7 +160,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }: Props) => {
       </Transition.Root>
 
       {/* Static sidebar for desktop */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:block lg:w-64 lg:overflow-y-auto lg:bg-white lg:border-r-2 border-border-light lg:dark:bg-primary-dark lg:pb-4">
+      <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:block lg:w-64 lg:overflow-y-auto lg:bg-white lg:border-r-2 border-border-light lg:dark:bg-primary-dark lg:pb-4 drop-shadow-md">
         <nav className="mt-32">
           <ul role="list" className="-mx-2 space-y-4 w-[98%]">
             {navigation.map((item) => (
@@ -170,17 +170,17 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                   className={classNames(
                     item.current
                       ? 'bg-gradient-linear text-white rounded-r-full'
-                      : 'text-[#858585] dark:text-white hover:bg-gray-50 hover:rounded-r-full',
+                      : 'text-primary-dark dark:text-white hover:bg-gray-50 hover:rounded-r-full',
                     'group flex gap-x-3 rounded-md hover:text-white hover:bg-gradient-rev hover:opacity-50 pl-12 py-2 text-sm leading-6 font-semibold transition-all duration-500 ease-in-out'
                   )}
                 >
-                  <div className="relative w-6">
+                  <div className="relative w-6 text-white">
                     <div className="absolute inset-0 group-hover:hidden">
                       <svg
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="w-8 h-8 transition-colors duration-300 ease-in-out"
+                        className="w-8 h-8 opacity-100 transition-colors duration-300 ease-in-out"
                       >
                         <linearGradient
                           id={`gradient-${item.name}`}
@@ -216,7 +216,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                         className=" text-white opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
                       />
                     </div>
-                  </div>
+                  </div>{' '}
                   {item.name}
                 </a>
               </li>

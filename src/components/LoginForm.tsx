@@ -1,11 +1,13 @@
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useState } from 'react';
+import useAuth from '../hooks/useAuth';
 
 const LoginForm = () => {
+  const { details, setDetails, handleLogin } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div>
-      <form className="space-y-6 py-6 " action="#" method="POST">
+      <form className="space-y-6 py-6 " onSubmit={handleLogin}>
         <div>
           <label
             htmlFor="email"
@@ -19,8 +21,12 @@ const LoginForm = () => {
               name="email"
               type="email"
               autoComplete="email"
+              value={details.email}
+              onChange={(e) =>
+                setDetails({ ...details, email: e.target.value })
+              }
               required
-              className="dark:bg-primary-dark block w-full rounded-full border-0 py-1.5 px-4 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="dark:bg-primary-dark block w-full rounded-full border-0 py-2 px-4 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
         </div>
@@ -48,8 +54,12 @@ const LoginForm = () => {
               name="password"
               type={showPassword ? 'text' : 'password'}
               autoComplete="current-password"
+              value={details.password}
+              onChange={(e) =>
+                setDetails({ ...details, password: e.target.value })
+              }
               required
-              className="dark:bg-primary-dark block w-full rounded-full border-0 py-1.5 px-4 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="dark:bg-primary-dark block w-full rounded-full border-0 py-2 px-4 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
             <div
               className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
@@ -68,7 +78,7 @@ const LoginForm = () => {
         <div>
           <button
             type="submit"
-            className="flex w-full justify-center rounded-full bg-gradient-linear hover:bg-gradient-rev px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm transition-all duration-700 linear"
+            className="flex w-full justify-center rounded-full bg-gradient-linear hover:bg-gradient-rev px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm transition-all duration-700 linear"
           >
             Sign in
           </button>

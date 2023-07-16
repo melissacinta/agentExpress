@@ -3,15 +3,17 @@ import Logo from './Logo';
 import ToggleSwitch from './ToggleSwitch';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { classNames } from '../utils';
-const userNavigation = [
-  { name: 'Your profile', href: '#' },
-  { name: 'Sign out', href: '#' },
-];
+import { classNames, imageUrl } from '../utils';
+import useAuth from '../hooks/useAuth';
+
 type Props = {
   setSidebarOpen: (x: boolean) => void;
 };
+
+const userNavigation = [{ name: 'Sign out', href: '#' }];
+
 const AppHeader = ({ setSidebarOpen }: Props) => {
+  const { user } = useAuth();
   return (
     <div className="bg-white dark:bg-primary-dark w-full flex justify-between px-4 lg:px-16 dark:text-white transition-all duration-500 linear py-6 h-max border-b-2 border-border-light">
       <div className="flex items-center gap-x-4">
@@ -37,7 +39,10 @@ const AppHeader = ({ setSidebarOpen }: Props) => {
       </div>
       <div className="flex items-center gap-x-8">
         <ToggleSwitch />
-        <button type="button" className="-m-2.5 p-2.5 hover:text-gray-300">
+        <button
+          type="button"
+          className="-m-2.5 p-2.5 text-grey-light dark:text-primary-light hover:text-gray-300"
+        >
           <span className="sr-only">View notifications</span>
           <FiBell className="h-6 w-6" aria-hidden="true" />
         </button>
@@ -46,7 +51,7 @@ const AppHeader = ({ setSidebarOpen }: Props) => {
             <span className="sr-only">Open user menu</span>
             <img
               className="h-8 w-8 rounded-full bg-gray-50"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              src={imageUrl(user?.displayImage)}
               alt=""
             />
             <span className="hidden lg:flex lg:items-center">
@@ -54,7 +59,7 @@ const AppHeader = ({ setSidebarOpen }: Props) => {
                 className="ml-4 text-sm font-semibold leading-6 "
                 aria-hidden="true"
               >
-                Tom Cook
+                {user?.fullName}
               </span>
               <FiChevronDown
                 className="ml-2 h-5 w-5 text-gray-400"
@@ -71,22 +76,28 @@ const AppHeader = ({ setSidebarOpen }: Props) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-primary-light dark:bg-primary-dark py-2 shadow-lg ring-1 ring-border-light/50 focus:outline-none">
-              {userNavigation.map((item) => (
-                <Menu.Item key={item.name}>
-                  {({ active }) => (
-                    <a
-                      href={item.href}
-                      className={classNames(
-                        active ? 'bg-gradient-linear text-white' : '',
-                        'block px-3 py-1 text-sm leading-6'
-                      )}
-                    >
-                      {item.name}
-                    </a>
-                  )}
-                </Menu.Item>
-              ))}
+            <Menu.Items className="absolute right-0 z-10 mt-2.5 w-56 divide-y divide-border-light origin-top-right rounded-md bg-primary-light dark:bg-primary-dark py-2 shadow-lg ring-1 ring-border-light/50 focus:outline-none">
+              <div className="px-4 py-3">
+                <p className="text-sm">Signed in as</p>
+                <p className="truncate text-sm font-medium">{user?.email}</p>
+              </div>
+              <div className="py-1">
+                {userNavigation.map((item) => (
+                  <Menu.Item key={item.name}>
+                    {({ active }) => (
+                      <a
+                        href={item.href}
+                        className={classNames(
+                          active ? 'bg-gradient-linear text-white' : '',
+                          'block px-3 py-1 text-sm leading-6'
+                        )}
+                      >
+                        {item.name}
+                      </a>
+                    )}
+                  </Menu.Item>
+                ))}
+              </div>
             </Menu.Items>
           </Transition>
         </Menu>

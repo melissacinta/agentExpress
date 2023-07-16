@@ -27,7 +27,9 @@ const Login = () => {
               <ToggleSwitch />
             </div>
             <div className="py-6 text-center">
-              <h2 className="text-3xl font-bold font-Merienda">Hello Again!</h2>
+              <h2 className="text-3xl font-bold font-Merienda uppercase">
+                Hello Again!
+              </h2>
               <p>Welcome back you've been missed! </p>
             </div>
             <LoginForm />
