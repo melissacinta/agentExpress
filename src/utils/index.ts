@@ -1,9 +1,6 @@
 import { ToastOptions } from './types';
 import toast from 'react-hot-toast';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-export const baseUrl = process.env.REACT_APP_BASE_URL as string;
-
 export const imageUrl = (byteDataString: string): string => {
   const byteData = new Uint8Array(
     atob(byteDataString)

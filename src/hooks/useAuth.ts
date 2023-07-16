@@ -1,11 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import { FormEvent, useState } from 'react';
-import { baseUrl, notify } from '../utils';
+import { notify } from '../utils';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 const login = async ({ email, password }) => {
   return axios.get(
-    `${baseUrl}/login?email=${email as string}&password=${password as string}`
+    `${import.meta.env.VITE_BASE_URL as string}/login?email=${
+      email as string
+    }&password=${password as string}`
   );
 };
 export type USER = {
@@ -32,7 +34,7 @@ const useAuth = () => {
     mutationFn: login,
     onError: (error) => {
       if (error instanceof AxiosError) {
-        notify(error.response.data as string, {
+        notify((error.response.data || error.response.statusText) as string, {
           type: 'error',
           duration: 5000,
         });
