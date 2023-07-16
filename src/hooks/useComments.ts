@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { baseUrl, notify } from '../utils';
+import { notify } from '../utils';
 import useAuth from './useAuth';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 

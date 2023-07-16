@@ -6,9 +6,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'ttp://frontend.test.mwanga.ng/api',
+        target: 'http://frontend.test.mwanga.ng/api',
         changeOrigin: true,
         secure: false,
+        ws: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
