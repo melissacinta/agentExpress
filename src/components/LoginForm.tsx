@@ -1,9 +1,10 @@
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useState } from 'react';
 import useAuth from '../hooks/useAuth';
+import Spinner from './Spinner';
 
 const LoginForm = () => {
-  const { details, setDetails, handleLogin } = useAuth();
+  const { details, setDetails, handleLogin, isLoading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div>
@@ -78,9 +79,10 @@ const LoginForm = () => {
         <div>
           <button
             type="submit"
+            disabled={isLoading}
             className="flex w-full justify-center rounded-full bg-gradient-linear hover:bg-gradient-rev px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm transition-all duration-700 linear"
           >
-            Sign in
+            {isLoading ? <Spinner /> : 'Sign in'}
           </button>
         </div>
       </form>

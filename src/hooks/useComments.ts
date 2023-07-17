@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { notify } from '../utils';
 import useAuth from './useAuth';
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export type Comment = {
   title: string;
@@ -21,10 +21,10 @@ const storeAComment = ({ id, ...payload }) => {
 };
 
 const useComments = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { user } = useAuth();
   const { data: comments, isLoading } = useQuery({
-    queryKey: ['Comments'],
+    queryKey: ['comments'],
     queryFn: () => getComments(user?.id),
     select: ({ data }: { data: Comment[] }) => data,
     enabled: Boolean(user?.id),
@@ -39,8 +39,8 @@ const useComments = () => {
         });
       }
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['Comments'] });
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['comments'] });
       notify('Comment Added Successfully!', { type: 'success' });
     },
   });

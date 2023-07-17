@@ -28,7 +28,7 @@ const useAuth = () => {
     password: '',
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: login,
     onError: (error) => {
       if (error instanceof AxiosError) {
@@ -65,7 +65,15 @@ const useAuth = () => {
     notify('Signed Out Successfully', { type: 'success' });
   };
 
-  return { details, setDetails, handleLogin, user, navigate, handleLogout };
+  return {
+    details,
+    setDetails,
+    handleLogin,
+    user,
+    navigate,
+    handleLogout,
+    isLoading,
+  };
 };
 
 export default useAuth;

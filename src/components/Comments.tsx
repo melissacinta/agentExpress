@@ -1,8 +1,9 @@
 import { ChangeEvent, useState, Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import useComments from '../hooks/useComments';
+import Spinner from './Spinner';
 const Comments = () => {
-  const { comments, addNewComment, id } = useComments();
+  const { comments, addNewComment, id, isLoading } = useComments();
   const [newComment, setNewComment] = useState({
     title: '',
     comment: '',
@@ -62,6 +63,7 @@ const Comments = () => {
                         placeholder="Title"
                         value={newComment.title}
                         onChange={handleInputChange}
+                        disabled={addNewComment.isLoading}
                         className="w-full px-4 py-2 dark:bg-primary-dark  rounded-full border-2 border-gray-300 mb-2"
                       />
                       <textarea
@@ -69,14 +71,16 @@ const Comments = () => {
                         placeholder="Comment"
                         value={newComment.comment}
                         onChange={handleInputChange}
+                        disabled={addNewComment.isLoading}
                         className="w-full px-4 py-2 dark:bg-primary-dark  rounded-2xl border-2 border-gray-300 mb-2"
                         rows={4}
                       ></textarea>
                       <button
                         onClick={handleAddComment}
+                        disabled={addNewComment.isLoading}
                         className="bg-gradient-linear hover:bg-gradient-rev transition-all duration-500 ease-in-out text-white px-4 py-2 rounded-full"
                       >
-                        Add Comment
+                        {addNewComment.isLoading ? <Spinner /> : 'Add Comment'}
                       </button>
                     </div>
                   </div>
@@ -87,21 +91,27 @@ const Comments = () => {
         </Popover>
       </div>
 
-      <ul className="grid md:grid-cols-2 gap-x-4">
-        {comments?.map((comment, index) =>
-          comment.title ? (
-            <li
-              key={index}
-              className="bg-gradient-dark p-4 mb-4 rounded-md shadow"
-            >
-              <h3 className="text-lg font-semibold">{comment.title}</h3>
-              <p className="mt-2">{comment.comment}</p>
-            </li>
-          ) : (
-            []
-          )
-        )}
-      </ul>
+      {isLoading ? (
+        <div className="min-h-[6.25rem] flex justify-center items-center">
+          <Spinner />
+        </div>
+      ) : (
+        <ul className="grid md:grid-cols-2 gap-x-4">
+          {comments?.map((comment, index) =>
+            comment.title ? (
+              <li
+                key={index}
+                className="bg-gradient-dark p-4 mb-4 rounded-md shadow"
+              >
+                <h3 className="text-lg font-semibold">{comment.title}</h3>
+                <p className="mt-2">{comment.comment}</p>
+              </li>
+            ) : (
+              []
+            )
+          )}
+        </ul>
+      )}
     </div>
   );
 };
